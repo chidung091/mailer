@@ -16,7 +16,6 @@ import { MailerTransportFactory } from './interfaces/mailer-transport-factory.in
 import { MailerService } from './mailer.service';
 import { HandlebarsAdapter } from './adapters/handlebars.adapter';
 import { PugAdapter } from './adapters/pug.adapter';
-import { EjsAdapter } from './adapters/ejs.adapter';
 
 /**
  * Common testing code for testing up a testing module and MailerService
@@ -317,36 +316,6 @@ describe('MailerService', () => {
     expect(lastMail.data.from).toBe('user1@example.test');
     expect(lastMail.data.html).toBe(
       '<html><head></head><body><p>Pug test template.</p><p>Hello World!</p></body></html>',
-    );
-  });
-
-  it('should compile template with the ejs adapter', async () => {
-    let lastMail: MailMessage;
-    const send = spyOnSmtpSend((mail: MailMessage) => {
-      lastMail = mail;
-    });
-
-    const service = await getMailerServiceForOptions({
-      transport: new SMTPTransport({}),
-      template: {
-        adapter: new EjsAdapter(),
-      },
-    });
-
-    await service.sendMail({
-      from: 'user1@example.test',
-      to: 'user2@example.test',
-      subject: 'Test',
-      template: __dirname + '/test-templates/ejs-template',
-      context: {
-        MAILER: 'Nest-modules TM',
-      },
-    });
-
-    expect(send).toHaveBeenCalled();
-    expect(lastMail.data.from).toBe('user1@example.test');
-    expect(lastMail.data.html).toBe(
-      '<html><head></head><body><p>Ejs test template. by Nest-modules TM</p></body></html>',
     );
   });
 

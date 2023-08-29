@@ -32,8 +32,6 @@ yarn add -D @types/nodemailer
 npm install --save handlebars
 #or
 npm install --save pug
-#or
-npm install --save ejs
 ```
 
 #### with yarn
@@ -41,8 +39,6 @@ npm install --save ejs
 yarn add handlebars
 #or
 yarn add pug
-#or
-yarn add ejs
 ```
 
 ### Documentation

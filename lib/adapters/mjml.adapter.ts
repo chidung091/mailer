@@ -1,6 +1,5 @@
 /** Dependencies **/
 import { HandlebarsAdapter } from './handlebars.adapter';
-import { EjsAdapter } from './ejs.adapter';
 import { TemplateAdapterConfig } from '../interfaces/template-adapter-config.interface';
 import { PugAdapter } from './pug.adapter';
 import { TemplateAdapter } from '../interfaces/template-adapter.interface';
@@ -11,7 +10,7 @@ export class MjmlAdapter implements TemplateAdapter {
   private engine: TemplateAdapter | null;
 
   constructor(
-    engine: TemplateAdapter | '' | 'pug' | 'handlebars' | 'ejs',
+    engine: TemplateAdapter | '' | 'pug' | 'handlebars',
     config?: TemplateAdapterConfig,
     others?: {
       handlebar?: {
@@ -26,8 +25,6 @@ export class MjmlAdapter implements TemplateAdapter {
         this.engine = new PugAdapter(config);
       } else if (engine === 'handlebars') {
         this.engine = new HandlebarsAdapter(others.handlebar.helper, config);
-      } else if (engine === 'ejs') {
-        this.engine = new EjsAdapter(config);
       } else if (engine === '') {
         engine = null;
       }
